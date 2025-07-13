@@ -1,178 +1,138 @@
-<a name="readme-top">
+<a name="readme-top"></a>
 
-<br/>
-
-<br />
 <div align="center">
-  <a href="https://github.com/Aiden017">
-  <!-- TODO: If you want to add logo or banner you can add it here -->
-  </a>
-<!-- TODO: Change Title to the name of the title of your Project -->
-  <h3 align="center">AD-Task-3</h3>
+  <h3 align="center">AD-TASK-3</h3>
 </div>
-<!-- TODO: Make a short description -->
+
 <div align="center">
   Part 1
 </div>
 
-<br />
-
-<!-- TODO: Change the zyx-0314 into your github username  -->
-<!-- TODO: Change the WD-Template-Project into the same name of your folder -->
-
-![](https://visit-counter.vercel.app/counter.png?page=aiden017/AD-TASk-3)
+![](https://visit-counter.vercel.app/counter.png?page=aiden017/AD-TASK-3)
 
 [![wakatime](https://wakatime.com/badge/user/144d2c3f-82f0-440d-89df-023ce97ebda9/project/58db26d2-ae72-4b5f-bbc6-fcf7e2e3e440.svg)](https://wakatime.com/badge/user/144d2c3f-82f0-440d-89df-023ce97ebda9/project/58db26d2-ae72-4b5f-bbc6-fcf7e2e3e440)
 
 ---
 
-<br />
-<br />
+## 📑 Table of Contents
 
-<!-- TODO: If you want to add more layers for your readme -->
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#overview">Overview</a>
-      <ol>
-        <li>
-          <a href="#key-components">Key Components</a>
-        </li>
-        <li>
-          <a href="#technology">Technology</a>
-        </li>
-      </ol>
-    </li>
-    <li>
-      <a href="#rule,-practices-and-principles">Rules, Practices and Principles</a>
-    </li>
-    <li>
-      <a href="#resources">Resources</a>
-    </li>
-  </ol>
-</details>
+- [Overview](#overview)
+  - [Key Components](#key-components)
+  - [Technology](#technology)
+- [Rules, Practices and Principles](#rules-practices-and-principles)
+- [Resources](#resources)
 
 ---
 
-## Overview
+## 📘 Overview
 
-<!-- TODO: To be changed -->
-<!-- The following are just sample -->
+This project is a web application built with PHP for user and task management. It features authentication, user roles, PostgreSQL and MongoDB support, Docker integration, and reusable component-based structure.
 
-Description of the project in details.
+### 🧩 Key Components
 
-### Key Components
+- User Authentication (Login/Logout)
+- PostgreSQL + MongoDB integration
+- Component-based UI (`.component.php`)
+- Utility functions and database seeders
+- Static data insertion for dummy users
 
-<!-- TODO: List of Key Components -->
-<!-- The following are just sample -->
+### 🧪 Technology
 
-- Authentication & Authorization
-- CRUD Operations for Invetory System
-
-### Technology
-
-<!-- TODO: List of Technology Used -->
-#### Language
+#### Language  
 ![PHP](https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white)
 
-#### Framework/Library
+#### Framework/Library  
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white)
 
-#### Databases
-![MySQL](https://img.shields.io/badge/MySQL-00758F?style=for-the-badge&logo=mysql&logoColor=white)
+#### Databases  
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)  
 ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+
+---
+
+## 🧱 Rules, Practices and Principles
+
+1. Always use `AD-` in the project name.
+2. Do not rename `.php` files in `pages/`; always use `index.php`.
+3. Components use `.component.php`; e.g., `loginForm.component.php`
+4. Utility scripts use `.util.php`; e.g., `envSetter.util.php`
+5. Place files in their respective folders.
+6. Naming Cases:
+   | Naming Case | Type of Code         | Example                           |
+   |-------------|----------------------|-----------------------------------|
+   | Pascal      | Utility              | EnvSetter.util.php                |
+   | Camel       | Pages/Components     | loginForm.component.php, index.php|
+
+7. Page folder names should reflect function (e.g., `Login`, `Logout`)
+8. Git commits use proper labels: `feat`, `fix`, `refactor`, `docs`
+9. Follow the file structure shown below:
+
+---
+
+## 📁 File Structure
+AD-TASK-3
+├── assets/
+├── components/
+│ ├── componentGroup/
+│ └── templates/
+│ ├── example.component.php
+│ └── loginForm.component.php
+├── database/
+│ ├── users.model.sql
+│ ├── projects.model.sql
+│ ├── tasks.model.sql
+│ ├── project_users.model.sql
+│ └── other .sql files
+├── docs/
+├── errors/
+│ ├── errorName.error.php
+│ └── unauthorized.error.php
+├── handlers/
+│ ├── auth.handler.php
+│ ├── mongodbChecker.handler.php
+│ └── postgreChecker.handler.php
+├── layouts/
+├── pages/
+│ ├── Login/
+│ │ └── index.php
+│ ├── Logout/
+│ │ └── index.php
+│ └── index.php
+├── sql/
+│ ├── Old Table Auto Increment.sql
+│ ├── New Table Auto Increment Script.sql
+│ └── other .sql files
+├── src/
+├── staticDatas/
+│ └── Dummies/
+│ └── users.staticData.php
+├── utils/
+│ ├── auth.util.php
+│ ├── dbMigratePostgresql.util.php
+│ ├── dbResetPostgresql.util.php
+│ ├── dbSeederPostgresql.util.php
+│ ├── envSetter.util.php
+│ └── htmlEscape.util.php
+├── .env
+├── .gitignore
+├── bootstrap.php
+├── compose.yaml
+├── composer.json
+├── composer.lock
+├── Dockerfile
+├── index.php
+├── README.Docker.md
+├── readme.md
+└── router.php
 
 
-## Rules, Practices and Principles
 
-<!-- Do not Change this -->
+---
 
-1. Always use `AD-` in the front of the Title of the Project for the Subject followed by your custom naming.
-2. Do not rename `.php` files if they are pages; always use `index.php` as the filename.
-3. Add `.component` to the `.php` files if they are components code; example: `footer.component.php`.
-4. Add `.util` to the `.php` files if they are utility codes; example: `account.util.php`.
-5. Place Files in their respective folders.
-6. Different file naming Cases
-   | Naming Case | Type of code         | Example                           |
-   | ----------- | -------------------- | --------------------------------- |
-   | Pascal      | Utility              | Accoun.util.php                   |
-   | Camel       | Components and Pages | index.php or footer.component.php |
-8. Renaming of Pages folder names are a must, and relates to what it is doing or data it holding.
-9. Use proper label in your github commits: `feat`, `fix`, `refactor` and `docs`
-10. File Structure to follow below.
+## 📚 Resources
 
-```
-AD-ProjectName
-└─ assets
-|   └─ css
-|   |   └─ user.css
-|   └─ img
-|   └─ js
-└─ components
-|   └─ componentGroup
-|   |   └─ example.component.php
-|   └─ templates
-|       └─ example.component.php
-└─ database
-|   └─ nameOfModels.model.sql
-└─ docs
-|   └─ vsCode
-|   |   └─ PHP-CI4-AITS.code-profile
-|   └─ Databse VS Code Manual.md
-|   └─ Docker Manual.md
-|   └─ Git Commits.md
-|   └─ Initial Checklist.md
-|   └─ Issues.md
-|   └─ PHP Dev Manual.md
-|   └─ PHP File Structure Manual.md
-|   └─ Request.md
-|   └─ VS Code Profile Manual.md
-└─ errors
-|   └─ errorName.error.php
-└─ handlers
-|   └─ mongodbChecker.handler.php
-|   └─ postgreChecker.handler.php
-└─ layouts
-|   └─ example.layout.php
-└─ pages
-|   └─ ExamplePage
-|      └─ assets
-|      |  └─ css
-|      |  └─ img
-|      |  └─ js
-|      └─ index.php
-└─ sql
-|   └─ New Table Auto Increment Script.sql
-|   └─ Old Table Auto Increment.sql
-|   └─ user.model.sql
-└─ src
-└─ staticDatas
-|   └─ example.staticData.php
-└─ utils
-|   └─ envSetter.util.php
-|   └─ htmlEscape.util.php
-└─ vendor
-|   └─ autoload.php
-|   └─ composer
-|   └─ graham-campbell
-|   └─ phpoption
-|   └─ symfony
-|   └─ vlucas
-└─ .gitignore
-└─ bootstrap.php
-└─ compose.yaml
-└─ composer.json
-└─ composer.lock
-└─ Dockerfile
-└─ index.php
-└─ README.Docker.md
-└─ readme.md
-└─ router.php
-```
-> The following should be renamed: name.css, name.js, name.jpeg/.jpg/.webp/.png, name.component.php(but not the part of the `component.php`), Name.utils.php(but not the part of the `utils.php`)
-
-## Resources
-
+- [PHP Manual](https://www.php.net/manual/en/)
+- [PostgreSQL Docs](https://www.postgresql.org/docs/)
+- [MongoDB Manual](https://www.mongodb.com/docs/)
+- [Bootstrap Docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
