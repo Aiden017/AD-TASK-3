@@ -1,25 +1,26 @@
 {
-    "name": "aiden-auditore/ad-task-3",
-    "description": "ad-task-3 setup",
-    "type": "project",
-    "autoload": {
-        "psr-4": {
-            "AidenAuditore\\AdTask3\\": "src/"
-        }
-    },
-    "authors": [
-        {
-            "name": "Aiden017",
-            "email": "kentc1322@gmail.com"
-        }
-    ],
-    "require": {
-        "vlucas/phpdotenv": "^5.6"
-    },
-    "scripts": {
-        "postgresql:reset": "php utils/dbResetPostgresql.util.php",
-        "postgresql:seed": "php utils/dbSeederPostgresql.util.php",
-        "postgresql:migrate": "php utils/dbMigratePostgresql.util.php"
+  "name": "aiden-auditore/ad-task-3",
+  "description": "ad-task-3 setup",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "AidenAuditore\\AdTask3\\": "src/"
     }
+  },
+  "authors": [
+    {
+      "name": "Aiden017",
+      "email": "kentc1322@gmail.com"
+    }
+  ],
+  "require": {
+    "vlucas/phpdotenv": "^5.6"
+  },
+  "scripts": {
+    "postgresql:reset": "docker exec aide017-database-service php utils/dbResetPostgresql.util.php",
 
+    "postgresql:seed": "docker exec aide017-database-service php utils/dbSeederPostgresql.util.php",
+
+    "postgresql:migrate": "docker exec aide017-database-service php utils/dbMigratePostgresql.util.php"
+  }
 }

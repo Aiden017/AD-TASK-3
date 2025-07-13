@@ -1,13 +1,18 @@
 <?php
-
-// Define the base directory (root of the project)
 define('BASE_PATH', realpath(__DIR__));
+define('COMPONENTS_PATH', realpath(BASE_PATH . "/components"));
+define('TEMPLATES_PATH', realpath(BASE_PATH . "/components/templates"));
+define('HANDLERS_PATH', realpath(BASE_PATH . "/handlers"));
+define('LAYOUTS_PATH', realpath(BASE_PATH . "/layouts"));
+define('PAGES_PATH', realpath(BASE_PATH . "/pages"));
+define('STATICDATAS_PATH', realpath(BASE_PATH . "/staticDatas"));
+define('DUMMIES_PATH', realpath(BASE_PATH . "/staticDatas/dummies"));
+define('UTILS_PATH', realpath(BASE_PATH . "/utils"));
+define('ERRORS_PATH', realpath(BASE_PATH . "/errors"));
 
-// Common directory paths used across the project
-define('UTILS_PATH', realpath(BASE_PATH . '/utils'));
-define('DUMMIES_PATH', realpath(BASE_PATH . '/staticData/dummies'));
-define('DATABASE_PATH', realpath(BASE_PATH . '/database'));
-define('HANDLERS_PATH', realpath(BASE_PATH . '/handlers'));
-define('SRC_PATH', realpath(BASE_PATH . '/src'));
+chdir(BASE_PATH);
 
-// You can add more if needed
+require 'vendor/autoload.php';
+
+$dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
+$dotenv->load();

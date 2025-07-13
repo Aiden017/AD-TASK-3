@@ -1,21 +1,42 @@
 <?php
 declare(strict_types=1);
-require_once 'vendor/autoload.php';
-require_once 'bootstrap.php';
-require_once UTILS_PATH . '/envSetter.util.php';
 
-$users = require_once DUMMIES_PATH . '/users.staticData.php';
+// 1) Composer autoload
+require_once __DIR__ . '/../vendor/autoload.php';
 
-$dsn = "pgsql:host={$databases['pgHost']};port={$databases['pgPort']};dbname={$databases['pgDB']}";
-$pdo = new PDO($dsn, $databases['pgUser'], $databases['pgPassword'], [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-]);
+// 2) Bootstrap
+require_once __DIR__ . '/../bootstrap.php';
 
-echo "Seeding users…\n";
+// 3) envSetter
+require_once __DIR__ . '/envSetter.util.php';
+
+$host = env('PG_HOST');
+$port = env('PG_PORT');
+$dbname = env('PG_DB');
+$username = env('PG_USER');
+$password = env('PG_PASS');
+
+$dsn = "pgsql:host={$host};port={$port};dbname={$dbname}";
+
+try {
+    $pdo = new PDO($dsn, $username, $password, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ]);
+} catch (PDOException $e) {
+    die("❌ Database connection failed: " . $e->getMessage() . "\n");
+}
+
+// Load dummy users
+$users = require_once __DIR__ . '/../staticDatas/Dummies/users.staticData.php';
+
+echo "🌱 Seeding users…\n";
+
+// Prepare insert query
 $stmt = $pdo->prepare("
     INSERT INTO users (username, role, first_name, last_name, password)
     VALUES (:username, :role, :fn, :ln, :pw)
 ");
+
 foreach ($users as $u) {
     $stmt->execute([
         ':username' => $u['username'],
@@ -25,4 +46,5 @@ foreach ($users as $u) {
         ':pw' => password_hash($u['password'], PASSWORD_DEFAULT),
     ]);
 }
-echo "✅ PostgreSQL seeding complete!\n";
+
+echo "✅ Seeding complete!\n";
