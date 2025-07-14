@@ -185,8 +185,11 @@ AD-TASK-3
 
 ## 📚 Resources
 
-- [PHP Manual](https://www.php.net/manual/en/)
-- [PostgreSQL Docs](https://www.postgresql.org/docs/)
-- [MongoDB Manual](https://www.mongodb.com/docs/)
-- [Bootstrap Docs](https://getbootstrap.com/docs/5.0/getting-started/introduction/)
+| Resource         | Link                                                                 |
+|------------------|----------------------------------------------------------------------|
+| PHP Manual       | [https://www.php.net/manual/en/](https://www.php.net/manual/en/)     |
+| PostgreSQL Docs  | [https://www.postgresql.org/docs/](https://www.postgresql.org/docs/) |
+| MongoDB Manual   | [https://www.mongodb.com/docs/](https://www.mongodb.com/docs/)       |
+| Bootstrap Docs   | [https://getbootstrap.com/docs/5.0/getting-started/introduction/](https://getbootstrap.com/docs/5.0/getting-started/introduction/) |
+
 
