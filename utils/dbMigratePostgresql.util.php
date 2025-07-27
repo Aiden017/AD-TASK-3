@@ -5,10 +5,7 @@ declare(strict_types=1);
 // 1) Bootstrap: defines BASE_PATH, UTILS_PATH, etc.
 require_once 'bootstrap.php';
 
-// 2) Load env() helper
-require_once UTILS_PATH . '/envSetter.util.php';
-
-// 3) Get DB connection values from .env
+//2) Get DB connection values from .env
 $host     = env('PG_HOST');
 $port     = env('PG_PORT');
 $dbname   = env('PG_DB');

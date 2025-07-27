@@ -2,8 +2,7 @@
 declare(strict_types=1);
 
 // ✅ Safe: relative path from project root
-require_once 'bootstrap.php';                        // <- this only works if called from root
-require_once UTILS_PATH . '/envSetter.util.php';     // <- uses defined constant
+require_once 'bootstrap.php';          
 
 $host = env('PG_HOST');
 $port = env('PG_PORT');

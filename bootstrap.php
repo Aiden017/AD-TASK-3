@@ -12,7 +12,11 @@ define('ERRORS_PATH', realpath(BASE_PATH . "/errors"));
 
 chdir(BASE_PATH);
 
-require 'vendor/autoload.php';
+// ✅ Load Composer autoload
+require_once BASE_PATH . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(BASE_PATH);
-$dotenv->load();
+// ✅ Load env helper
+require_once UTILS_PATH . '/envSetter.util.php';
+
+// ✅ Load auth helpers (isAuthenticated, getCurrentUser, etc.)
+require_once UTILS_PATH . '/auth.util.php';
