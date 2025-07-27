@@ -6,7 +6,7 @@ define('HANDLERS_PATH', realpath(BASE_PATH . "/handlers"));
 define('LAYOUTS_PATH', realpath(BASE_PATH . "/layouts"));
 define('PAGES_PATH', realpath(BASE_PATH . "/pages"));
 define('STATICDATAS_PATH', realpath(BASE_PATH . "/staticDatas"));
-define('DUMMIES_PATH', realpath(BASE_PATH . "/staticDatas/dummies"));
+define('DUMMIES_PATH', realpath(BASE_PATH . "/staticDatas/Dummies"));
 define('UTILS_PATH', realpath(BASE_PATH . "/utils"));
 define('ERRORS_PATH', realpath(BASE_PATH . "/errors"));
 

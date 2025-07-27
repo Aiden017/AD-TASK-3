@@ -24,3 +24,17 @@ header {
     gap: 1rem;
     align-items: center;
 }
+
+.logout-button {
+    background-color: #e63946;
+    color: white;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}

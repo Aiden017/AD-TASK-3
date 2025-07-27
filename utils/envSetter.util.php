@@ -1,10 +1,5 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
-
-use Dotenv\Dotenv;
-
-$dotenv = Dotenv::createImmutable(__DIR__ . '/../');
-$dotenv->load();
+// Do NOT include autoload or Dotenv again — already handled in bootstrap
 
 function env($key, $default = null)
 {

@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
-require_once __DIR__ . '/../vendor/autoload.php';
-require_once __DIR__ . '/envSetter.util.php';
+
+// ✅ Safe: relative path from project root
+require_once 'bootstrap.php';                        // <- this only works if called from root
+require_once UTILS_PATH . '/envSetter.util.php';     // <- uses defined constant
 
 $host = env('PG_HOST');
 $port = env('PG_PORT');
@@ -19,10 +21,9 @@ try {
     die("❌ Database connection failed: " . $e->getMessage() . "\n");
 }
 
-// ✅ 1. Apply table schemas first
 $models = ['users', 'projects', 'project_users', 'tasks'];
 foreach ($models as $model) {
-    $path = __DIR__ . "/../database/{$model}.model.sql";
+    $path = BASE_PATH . "/database/{$model}.model.sql";
     echo "📄 Applying schema: {$model}.model.sql…\n";
     $sql = file_get_contents($path);
     if ($sql === false) {
@@ -32,7 +33,6 @@ foreach ($models as $model) {
     echo "✅ Applied schema for: {$model}\n";
 }
 
-// ✅ 2. Truncate tables AFTER they are created
 echo "🔄 Truncating tables…\n";
 foreach (['project_users', 'tasks', 'projects', 'users'] as $table) {
     $pdo->exec("TRUNCATE TABLE {$table} RESTART IDENTITY CASCADE;");

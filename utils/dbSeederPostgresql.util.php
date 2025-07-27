@@ -1,37 +1,31 @@
 <?php
+
 declare(strict_types=1);
 
-// 1) Composer autoload
-require_once __DIR__ . '/../vendor/autoload.php';
+// Load bootstrap: defines BASE_PATH, DUMMIES_PATH, UTILS_PATH
+require_once 'bootstrap.php';
 
-// 2) Bootstrap
-require_once __DIR__ . '/../bootstrap.php';
+// Load env helper
+require_once UTILS_PATH . '/envSetter.util.php';
 
-// 3) envSetter
-require_once __DIR__ . '/envSetter.util.php';
+// Load dummy user data
+$users = require DUMMIES_PATH . '/users.staticData.php';
 
-$host = env('PG_HOST');
-$port = env('PG_PORT');
-$dbname = env('PG_DB');
+// Connect to PostgreSQL
+$host     = env('PG_HOST');
+$port     = env('PG_PORT');
+$dbname   = env('PG_DB');
 $username = env('PG_USER');
 $password = env('PG_PASS');
 
 $dsn = "pgsql:host={$host};port={$port};dbname={$dbname}";
+$pdo = new PDO($dsn, $username, $password, [
+    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+]);
 
-try {
-    $pdo = new PDO($dsn, $username, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
-    ]);
-} catch (PDOException $e) {
-    die("❌ Database connection failed: " . $e->getMessage() . "\n");
-}
+echo "Seeding users…\n";
 
-// Load dummy users
-$users = require_once __DIR__ . '/../staticDatas/Dummies/users.staticData.php';
-
-echo "🌱 Seeding users…\n";
-
-// Prepare insert query
+// Insert users
 $stmt = $pdo->prepare("
     INSERT INTO users (username, role, first_name, last_name, password)
     VALUES (:username, :role, :fn, :ln, :pw)
@@ -40,11 +34,11 @@ $stmt = $pdo->prepare("
 foreach ($users as $u) {
     $stmt->execute([
         ':username' => $u['username'],
-        ':role' => $u['role'],
-        ':fn' => $u['first_name'],
-        ':ln' => $u['last_name'],
-        ':pw' => password_hash($u['password'], PASSWORD_DEFAULT),
+        ':role'     => $u['role'],
+        ':fn'       => $u['first_name'],
+        ':ln'       => $u['last_name'],
+        ':pw'       => password_hash($u['password'], PASSWORD_DEFAULT),
     ]);
 }
 
-echo "✅ Seeding complete!\n";
+echo "✅ PostgreSQL seeding complete!\n";

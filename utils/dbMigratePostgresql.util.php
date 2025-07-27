@@ -1,23 +1,21 @@
 <?php
+
 declare(strict_types=1);
 
-// 1) Autoload Composer
-require_once __DIR__ . '/../vendor/autoload.php';
+// 1) Bootstrap: defines BASE_PATH, UTILS_PATH, etc.
+require_once 'bootstrap.php';
 
-// 2) Load env variables (must come before bootstrap)
-require_once __DIR__ . '/envSetter.util.php';
+// 2) Load env() helper
+require_once UTILS_PATH . '/envSetter.util.php';
 
-// 3) Bootstrap for dotenv (after envSetter)
-require_once __DIR__ . '/../bootstrap.php';
-
-// 4) Get DB connection values from .env
-$host = env('PG_HOST');
-$port = env('PG_PORT');
-$dbname = env('PG_DB');
+// 3) Get DB connection values from .env
+$host     = env('PG_HOST');
+$port     = env('PG_PORT');
+$dbname   = env('PG_DB');
 $username = env('PG_USER');
 $password = env('PG_PASS');
 
-// Debug: Print env values to verify
+// 4) Check .env values
 if (!$host || !$port || !$dbname || !$username || !$password) {
     echo "❌ One or more environment variables are missing:\n";
     echo "PG_HOST: $host\n";
@@ -28,23 +26,25 @@ if (!$host || !$port || !$dbname || !$username || !$password) {
     exit(1);
 }
 
-// 5) Connect to PostgreSQL
+// 5) Create PDO connection
 $dsn = "pgsql:host={$host};port={$port};dbname={$dbname}";
 try {
     $pdo = new PDO($dsn, $username, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     ]);
 } catch (PDOException $e) {
     die("❌ Database connection failed: " . $e->getMessage() . "\n");
 }
 
-// 6) Drop old tables
-echo "🧨 Dropping old tables…\n";
+// 6) Drop existing tables (order matters due to FK constraints)
+echo "🧨 Dropping existing tables...\n";
 foreach (['project_users', 'tasks', 'projects', 'users'] as $table) {
     $pdo->exec("DROP TABLE IF EXISTS {$table} CASCADE;");
+    echo "❌ Dropped: {$table}\n";
 }
 
-// 7) Apply schemas
+// 7) Apply schema files
+echo "📥 Applying table schemas...\n";
 $schemas = [
     'users.model.sql',
     'projects.model.sql',
@@ -52,14 +52,17 @@ $schemas = [
     'tasks.model.sql'
 ];
 
-foreach ($schemas as $file) {
-    echo "📄 Applying schema: {$file}…\n";
-    $sql = file_get_contents(__DIR__ . "/../database/{$file}");
+foreach ($schemas as $filename) {
+    $filepath = BASE_PATH . "/database/{$filename}";
+    echo "📄 Processing: {$filename}...\n";
 
+    $sql = file_get_contents($filepath);
     if ($sql === false) {
-        throw new RuntimeException("❌ Could not read database/{$file}");
+        throw new RuntimeException("❌ Failed to read schema file: {$filepath}");
     }
 
     $pdo->exec($sql);
-    echo "✅ Applied schema for: " . basename($file, '.model.sql') . "\n";
+    echo "✅ Created table: " . basename($filename, '.model.sql') . "\n";
 }
+
+echo "🎉 Migration complete!\n";
